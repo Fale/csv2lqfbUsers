@@ -1,0 +1,17 @@
+{
+    "name": "fale/csv2lqfb-users",
+    "description": "Script to import Users in a csv file straight to lqfb",
+    "license": "AGPL-3.0",
+    "authors": [
+    {
+        "name": "Fabio Alessandro Locati",
+            "email": "fabiolocati@gmail.com",
+        "homepage": "http://fabiolocati.net",
+            "role": "Developer"
+    }
+    ],
+    "require": {
+        "illuminate/database": "4.0.*",
+    "goodby/csv": "*"
+    }
+}
