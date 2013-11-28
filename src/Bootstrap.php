@@ -9,14 +9,14 @@ class Bootstrap {
         $capsule = new Capsule; 
 
         $capsule->addConnection(array(
-            'driver'    => 'mysql',
+            'driver'    => 'pgsql',
             'host'      => 'localhost',
-            'database'  => 'wordpress',
-            'username'  => 'username',
-            'password'  => 'password',
+            'database'  => 'liquid_feedback',
+            'username'  => 'www-data',
+            'password'  => '',
             'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => ''
+            'prefix'    => '',
+            'schema'   => 'public'
         ));
 
         $capsule->bootEloquent();
