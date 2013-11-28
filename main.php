@@ -6,13 +6,13 @@ Bootstrap::boot();
 
 $a = Csv::csv2array('example.csv');
 
-foreach ($a as $k => $user) {
-    if (! User::where('email', $user[2])->count()) {
-        $invite = sha1($user[0] + " " + $user[1] + ", " + date('c'));
-        $u = new User;
-        $u->inviteCode = $invite;
-        $u->login = '?';
-        $u->name = $user[0] + " " + $user[1];
+foreach ($a as $k => $member) {
+    if (! Member::where('email', $member[2])->count()) {
+        $invite = sha1($member[0] + " " + $member[1] + ", " + date('c'));
+        $m = new Member;
+        $m->inviteCode = $invite;
+        $m->login = '?';
+        $m->name = $member[0] + " " + $member[1];
     } else
         $invite = "";
     $a[$k][4] = $invite;
