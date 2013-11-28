@@ -1,6 +1,6 @@
 <?php
 
-class csv {
+class Csv {
 
     static function csv2array($file)
     {

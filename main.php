@@ -2,26 +2,9 @@
 
 require 'vendor/autoload.php';
 
-use Illuminate\Database\Capsule\Manager as Capsule;  
+Bootstrap::boot();
 
-$capsule = new Capsule; 
-
-$capsule->addConnection(array(
-    'driver'    => 'mysql',
-    'host'      => 'localhost',
-    'database'  => 'wordpress',
-    'username'  => 'username',
-    'password'  => 'password',
-    'charset'   => 'utf8',
-    'collation' => 'utf8_unicode_ci',
-    'prefix'    => ''
-));
-
-$capsule->bootEloquent();
-
-$a = csv::csv2array('example.csv');
-
-
+$a = Csv::csv2array('example.csv');
 
 foreach ($a as $k => $user) {
     if (! User::where('email', $user[2])->count()) {
@@ -35,5 +18,4 @@ foreach ($a as $k => $user) {
     $a[$k][4] = $invite;
 }
 
-
-echo csv::array2csv($a);
+echo Csv::array2csv($a);
