@@ -19,25 +19,21 @@ $capsule->addConnection(array(
 
 $capsule->bootEloquent();
 
-$a = array();
+$a = csv::csv2array('example.csv');
 
-foreach (file('example.csv') as $k => $line)
-    $a[$k] = str_getcsv($line);
+
 
 foreach ($a as $k => $user) {
     if (! User::where('email', $user[2])->count()) {
         $invite = sha1($user[0] + " " + $user[1] + ", " + date('c'));
         $u = new User;
         $u->inviteCode = $invite;
-        $u->login = ?;
+        $u->login = '?';
         $u->name = $user[0] + " " + $user[1];
     } else
         $invite = "";
     $a[$k][4] = $invite;
 }
 
-foreach ($a as $k => $line) {
-    $a[$k] = implode(',', $line);
-}
 
-echo implode ('\n', $a);
+echo csv::array2csv($a);
