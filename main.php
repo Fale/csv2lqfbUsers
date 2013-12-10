@@ -13,7 +13,7 @@ foreach ($a as $k => $member) {
             $m = new Member;
             $m->invite_code = $invite;
             $m->login = $member[3];
-            $m->name = $member[0] + " " + $member[1];
+            $m->name = ucwords(strtolower($member[0])) + " " + ucwords(strtolower($member[1]));
             $m->save();
         } else {
             print_r($member);
