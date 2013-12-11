@@ -2,6 +2,18 @@
 
 require 'vendor/autoload.php';
 
+function checkFirstAvailable($name, $field)
+{
+    if (Member::where($field, $name)->count() == 0)
+        return $name;
+    $c = 0;
+    while (1 < 2) {
+        $c = $c + 1;
+        if (Member::where($field, $name . $c)->count() == 0)
+            return $name . $c;
+    }
+}
+
 Bootstrap::boot();
 
 $a = Csv::csv2array('example.csv');
@@ -12,15 +24,9 @@ foreach ($a as $k => $member) {
         if (! Member::where('invite_code', $invite)->count()) {
             $m = new Member;
             $m->invite_code = $invite;
-            $login = substr($member[2], 0, strpos($member[2], "@"));
-            if (Member::where('login', $login)->count() == 0)
-                $m->login = $login;
-            elseif (Member::where('login', $login . '1')->count() == 0)
-                $m->login = $login . '1';
-            elseif (Member::where('login', $login . '2')->count() == 0)
-                $m->login = $login . '2';
+            $m->login = checkFirstAvailable(substr($member[2], 0, strpos($member[2], "@")), 'login')
             $m->identification = $member[3];
-            $m->name = ucwords(strtolower($member[0])) . " " . ucwords(strtolower($member[1]));
+            $m->name = checkFirstAvailable(ucwords(strtolower($member[0])) . " " . ucwords(strtolower($member[1])), 'name');
             $m->save();
         } else {
             print_r($member);
