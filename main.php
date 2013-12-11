@@ -12,15 +12,15 @@ foreach ($a as $k => $member) {
         if (! Member::where('invite_code', $invite)->count()) {
             $m = new Member;
             $m->invite_code = $invite;
-            $login = substr($member[3], 0, strpos($member[3], "@"));
+            $login = substr($member[2], 0, strpos($member[2], "@"));
             if (Member::where('login', $login)->count() == 0)
                 $m->login = $login;
-            elseif (Member::where('login', $login + 1)->count() == 0)
-                $m->login = $login + '1';
-            elseif (Member::where('login', $login + 2)->count() == 0)
-                $m->login = $login + '2';
+            elseif (Member::where('login', $login . '1')->count() == 0)
+                $m->login = $login . '1';
+            elseif (Member::where('login', $login . '2')->count() == 0)
+                $m->login = $login . '2';
             $m->identification = $member[3];
-            $m->name = ucwords(strtolower($member[0])) + " " + ucwords(strtolower($member[1]));
+            $m->name = ucwords(strtolower($member[0])) . " " . ucwords(strtolower($member[1]));
             $m->save();
         } else {
             print_r($member);
